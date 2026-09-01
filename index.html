@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Industrial 4.0 - ENGEL CC300 & Siemens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.35;
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px dashed rgba(249, 115, 22, 0.6);
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            color: #f97316;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased relative">
+
+    <!-- Marca d'água da Engenharia Responsável -->
+    <div class="watermark">
+        Resp. Tec: Engª Aline Santos
+    </div>
+
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-orange-500">ENGEL CC300 & Indústria 4.0</h1>
+                <p class="text-xs text-slate-400">Simulador de Conectividade: CLP Siemens, I/O Remota, Switch Advantech & Power BI</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <span class="text-xs text-slate-300 block font-medium">Engª Responsável: Aline Santos</span>
+                    <span class="text-[10px] text-orange-400 block">Automação & Processos</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="inline-block w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-semibold text-green-400 uppercase tracking-wider">OPC UA / Euromap 77 Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-6 space-y-8">
+
+        <!-- Seção 1: Arquitetura de Hardware com Imagens Reais e 3D Render -->
+        <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
+            <h2 class="text-lg font-semibold text-slate-200 mb-4 border-b border-slate-700 pb-2">1. Topologia Física, Controladores e I/Os Remotas</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                
+                <!-- Card Imagem 1: Injetora / Painel CC300 -->
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-700 text-center">
+                    <div class="overflow-hidden rounded h-48 flex items-center justify-center bg-slate-950">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Painel ENGEL CC300 e Injetora" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <span class="text-[11px] font-medium text-orange-400 block mt-2">ENGEL CC300 & Célula de Injeção 3D</span>
+                </div>
+
+                <!-- Card Imagem 2: Siemens ET 200 & Switch Advantech -->
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-700 text-center">
+                    <div class="overflow-hidden rounded h-48 flex items-center justify-center bg-slate-950">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Siemens I/O e Switch Advantech PoE" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <span class="text-[11px] font-medium text-blue-400 block mt-2">Siemens SIMATIC ET 200 & Advantech PoE+</span>
+                </div>
+
+                <!-- Descritivo Técnico da Topologia -->
+                <div class="space-y-3">
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        A célula é gerida pelo painel <strong>ENGEL CC300</strong> com E/S descentralizadas via <strong>Siemens SIMATIC ET 200</strong>, interligadas por cabos Profinet Cat6A S/FTP de alta performance e comutadas pelo <strong>Switch Advantech Gerenciável PoE+</strong>.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li>✔️ Comunicação determinística via Profinet IRT.</li>
+                        <li>✔️ Alimentação PoE+ para dispositivos de borda e câmeras.</li>
+                        <li>✔️ Servidor OPC UA nativo para mapeamento Euromap 77.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Seção 2: Painel de Simulação de Dados em Tempo Real -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-4 shadow">
+                <span class="text-xs text-slate-400 block">Tempo de Ciclo Atual</span>
+                <span id="val-ciclo" class="text-2xl font-bold text-orange-400">28.4 s</span>
+                <span class="text-[10px] text-green-400 block mt-1">▲ Estável (Target: 28.0s)</span>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-4 shadow">
+                <span class="text-xs text-slate-400 block">Pressão de Injeção</span>
+                <span id="val-pressao" class="text-2xl font-bold text-blue-400">1425 bar</span>
+                <span class="text-[10px] text-slate-400 block mt-1">Siemens ET 200 Feedback</span>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-4 shadow">
+                <span class="text-xs text-slate-400 block">Contagem de Peças (Boas)</span>
+                <span id="val-pecas" class="text-2xl font-bold text-green-400">4,120</span>
+                <span class="text-[10px] text-slate-400 block mt-1">OEE Parcial: 88.5%</span>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-4 shadow">
+                <span class="text-xs text-slate-400 block">Status Switch Advantech</span>
+                <span class="text-2xl font-bold text-purple-400">Portas OK</span>
+                <span class="text-[10px] text-green-400 block mt-1">PoE+ Ativo (Consumo: 14.2W)</span>
+            </div>
+        </section>
+
+        <!-- Seção 3: Visualização do Dashboard Power BI com Imagem Real -->
+        <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
+            <h2 class="text-lg font-semibold text-slate-200 mb-4 border-b border-slate-700 pb-2">2. Integração Power BI (DirectQuery / API REST)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-700 text-center">
+                    <div class="overflow-hidden rounded h-64 flex items-center justify-center bg-slate-950">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Dashboard Power BI OEE" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <span class="text-[11px] font-medium text-emerald-400 block mt-2">Dashboard Corporativo OEE & Parâmetros de Injeção</span>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-300 mb-4">
+                        Os dados coletados via protocolo <strong>Euromap 77</strong> são processados e enviados para o banco relacional, alimentando diretamente o relatório corporativo no Power BI Service com atualização em tempo real.
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded border border-slate-700 text-xs font-mono text-slate-300">
+                        <code>// Medida DAX de OEE Calculada<br>
+                        OEE_Injetora = <br>
+                        DIVIDE([Disponibilidade] * [Desempenho] * [Qualidade], 10000)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-800 mt-12 space-y-1">
+        <p>Demonstração Técnica Industrial 4.0 • Engenharia Responsável: Engª Aline Santos</p>
+        <p class="text-[10px] text-slate-600">Desenvolvido para GitHub Pages • Projeto de Automação de Células de Injeção</p>
+    </footer>
+
+    <!-- Script de Simulação Dinâmica de Valores -->
+    <script>
+        setInterval(() => {
+            let pressaoAleatoria = Math.floor(Math.random() * (1450 - 1400 + 1)) + 1400;
+            let cicloAleatorio = (28 + Math.random() * 0.8).toFixed(1);
+            
+            document.getElementById('val-pressao').innerText = pressaoAleatoria + ' bar';
+            document.getElementById('val-ciclo').innerText = cicloAleatorio + ' s';
+        }, 3000);
+    </script>
+</body>
+</html>
