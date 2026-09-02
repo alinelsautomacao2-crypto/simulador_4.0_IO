@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Analytics - OEE & Injetora ENGEL CC300</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para simular os gráficos corporativos do Power BI -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.35;
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px dashed rgba(249, 115, 22, 0.6);
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            color: #f97316;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased relative pb-12">
+
+    <div class="watermark">
+        Resp. Tec: Engª Aline Santos
+    </div>
+
+    <!-- Barra de Topo Estilo Power BI Service -->
+    <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <span class="bg-amber-500 text-slate-950 font-bold px-2.5 py-1 rounded text-xs">PBI Service</span>
+            <div>
+                <h1 class="text-sm font-bold text-slate-100">Relatório Executivo: OEE & Célula ENGEL CC300</h1>
+                <p class="text-[11px] text-slate-400">Workspace: Indústria 4.0 / Conexão: DirectQuery (OPC UA / Euromap 77)</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs font-semibold transition border border-slate-700">← Voltar ao Início</a>
+            <span class="inline-block w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
+            <span class="text-xs text-emerald-400 font-medium">Atualização Cíclica Ativa</span>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 space-y-6">
+
+        <!-- Filtros e Controles de Simulação (Segmentações do PBI) -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Segmentação de Dados:</span>
+                <select id="filtroTurno" onchange="atualizarFiltroTurno()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded px-3 py-1.5 focus:outline-none focus:border-amber-500">
+                    <option value="geral">Turno Consolidado (Total)</option>
+                    <option value="manha">Turno A (Manhã - 06:00 às 14:20)</option>
+                    <option value="tarde">Turno B (Tarde - 14:20 às 22:40)</option>
+                    <option value="noite">Turno C (Noite - 22:40 às 06:00)</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="text-xs text-slate-400">Modo de Simulação em Tempo Real:</span>
+                <button onclick="toggleSimulacao()" id="btnSimulacao" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded transition">Pausar Feed</button>
+            </div>
+        </div>
+
+        <!-- Cartões de KPIs Principais (Cards do Power BI) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow border-l-4 border-l-amber-500">
+                <span class="text-xs text-slate-400 block font-medium">OEE Global (Eficiência)</span>
+                <div class="flex items-baseline space-x-2 mt-1">
+                    <span id="kpi-oee" class="text-3xl font-extrabold text-amber-400">84.2%</span>
+                    <span class="text-[10px] text-emerald-400 font-semibold">▲ +1.4% vs meta</span>
+                </div>
+                <span class="text-[10px] text-slate-500 block mt-2">Fórmula: Disp × Desem × Qual</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow border-l-4 border-l-blue-500">
+                <span class="text-xs text-slate-400 block font-medium">Disponibilidade</span>
+                <div class="flex items-baseline space-x-2 mt-1">
+                    <span id="kpi-disp" class="text-3xl font-extrabold text-blue-400">92.5%</span>
+                    <span class="text-[10px] text-slate-400">Paradas: 18 min</span>
+                </div>
+                <span class="text-[10px] text-slate-500 block mt-2">Siemens ET 200 Monitorado</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow border-l-4 border-l-emerald-500">
+                <span class="text-xs text-slate-400 block font-medium">Desempenho (Performance)</span>
+                <div class="flex items-baseline space-x-2 mt-1">
+                    <span id="kpi-desem" class="text-3xl font-extrabold text-emerald-400">94.1%</span>
+                    <span class="text-[10px] text-emerald-400">Ciclo Nominal: 28.0s</span>
+                </div>
+                <span class="text-[10px] text-slate-500 block mt-2">Euromap 77 Real-time Stream</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow border-l-4 border-l-purple-500">
+                <span class="text-xs text-slate-400 block font-medium">Qualidade (Peças Boas)</span>
+                <div class="flex items-baseline space-x-2 mt-1">
+                    <span id="kpi-qual" class="text-3xl font-extrabold text-purple-400">97.8%</span>
+                    <span id="kpi-refugo" class="text-[10px] text-rose-400">Refugo: 2.2%</span>
+                </div>
+                <span class="text-[10px] text-slate-500 block mt-2">Inspeção por Visão Computacional</span>
+            </div>
+        </div>
+
+        <!-- Gráficos Principais (Simulando Visualizações do PBI) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Gráfico 1: Linha do Tempo da Produção (Últimas Horas) -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl lg:col-span-2">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-bold text-slate-200">Evolução da Pressão de Injeção & Tempo de Ciclo</h3>
+                    <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded">Medida DAX: Média Móvel</span>
+                </div>
+                <div class="h-72 relative">
+                    <canvas id="graficoTendencia"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 2: Composição de Perdas de OEE (Gráfico de Rosca) -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-200 mb-1">Distribuição de Paradas & Perdas</h3>
+                    <p class="text-[11px] text-slate-400 mb-3">Análise de Causa Raiz por Tempo Ocioso</p>
+                </div>
+                <div class="h-56 relative flex items-center justify-center">
+                    <canvas id="graficoPerdas"></canvas>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                    <span>Setup de Molde: <strong class="text-slate-200">42%</strong></span>
+                    <span>Manutenção: <strong class="text-slate-200">35%</strong></span>
+                    <span>Outros: <strong class="text-slate-200">23%</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Código DAX Utilizado no Relatório -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+            <h3 class="text-sm font-bold text-amber-400 mb-2">🧠 Modelo Tabular & Medidas DAX Implementadas no Power BI</h3>
+            <p class="text-xs text-slate-400 mb-4">Estas fórmulas processam os dados brutos recebidos via protocolo Euromap 77 para alimentar os visuais acima:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-950 p-3.5 rounded border border-slate-800 font-mono text-xs text-slate-300">
+                    <span class="text-amber-500 font-bold">// 1. Cálculo de Disponibilidade Operacional</span><br>
+                    Disponibilidade_% = <br>
+                    DIVIDE(<br>
+                    &nbsp;&nbsp;[Tempo Total Operando],<br>
+                    &nbsp;&nbsp;[Tempo Planejado de Produção],<br>
+                    &nbsp;&nbsp;0<br>
+                    )
+                </div>
+                <div class="bg-slate-950 p-3.5 rounded border border-slate-800 font-mono text-xs text-slate-300">
+                    <span class="text-emerald-500 font-bold">// 2. Índice OEE Consolidado</span><br>
+                    OEE_Global = <br>
+                    [Disponibilidade_%] * <br>
+                    [Desempenho_%] * <br>
+                    [Qualidade_%]
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-900 mt-12 space-y-1">
+        <p>Simulador Analítico Power BI Service • Engenharia Responsável: Engª Aline Santos</p>
+    </footer>
+
+    <script>
+        // Configuração dos Gráficos com Chart.js
+        const ctxTendencia = document.getElementById('graficoTendencia').getContext('2d');
+        const graficoTendencia = new Chart(ctxTendencia, {
+            type: 'line',
+            data: {
+                labels: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+                datasets: [{
+                    label: 'Pressão de Injeção (bar)',
+                    data: [1410, 1425, 1430, 1418, 1422, 1435, 1425],
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }, {
+                    label: 'Tempo de Ciclo (s)',
+                    data: [28.1, 28.3, 28.0, 28.4, 28.2, 28.5, 28.2],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+                scales: {
+                    x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+                    y: { type: 'linear', display: true, position: 'left', ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+                    y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#64748b' } }
+                }
+            }
+        });
+
+        const ctxPerdas = document.getElementById('graficoPerdas').getContext('2d');
+        const graficoPerdas = new Chart(ctxPerdas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Setup de Molde', 'Manutenção Corretiva', 'Falta de Matéria-Prima', 'Pequenas Paradas'],
+                datasets: [{
+                    data: [42, 35, 15, 8],
+                    backgroundColor: ['#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, boxWidth: 12 } }
+                }
+            }
+        });
+
+        // Simulação dinâmica em tempo real
+        let simulando = true;
+        function toggleSimulacao() {
+            simulando = !simulando;
+            const btn = document.getElementById('btnSimulacao');
+            if (simulando) {
+                btn.innerText = "Pausar Feed";
+                btn.className = "px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded transition";
+            } else {
+                btn.innerText = "Retomar Feed";
+                btn.className = "px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded transition";
+            }
+        }
+
+        setInterval(() => {
+            if (!simulando) return;
+            
+            // Variar KPIs levemente para simular telemetria ativa
+            let oee = (83 + Math.random() * 2.5).toFixed(1);
+            let disp = (91 + Math.random() * 2.5).toFixed(1);
+            let desem = (93 + Math.random() * 2.0).toFixed(1);
+            let qual = (97 + Math.random() * 1.5).toFixed(1);
+            let refugo = (100 - qual).toFixed(1);
+
+            document.getElementById('kpi-oee').innerText = oee + '%';
+            document.getElementById('kpi-disp').innerText = disp + '%';
+            document.getElementById('kpi-desem').innerText = desem + '%';
+            document.getElementById('kpi-qual').innerText = qual + '%';
+            document.getElementById('kpi-refugo').innerText = 'Refugo: ' + refugo + '%';
+        }, 3000);
+
+        function atualizarFiltroTurno() {
+            const turno = document.getElementById('filtroTurno').value;
+            // Efeito visual de filtro aplicado
+            console.log("Filtro de turno aplicado no modelo tabular: " + turno);
+        }
+    </script>
+</body>
+</html>
