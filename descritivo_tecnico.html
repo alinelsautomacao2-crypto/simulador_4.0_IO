@@ -1,35 +1,228 @@
-<div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl space-y-6">
-    <h3 class="text-base font-bold text-orange-400 border-b border-slate-700 pb-2">Diagrama de Arquitetura de Ponta a Ponta</h3>
-    
-    <div class="space-y-4 text-xs">
-        <!-- Chão de Fábrica -->
-        <div class="bg-slate-900 p-4 rounded-lg border border-orange-500/30">
-            <span class="text-orange-400 font-bold block mb-1">1. Chão de Fábrica & Rede</span>
-            <p class="text-slate-300">Sensores do Molde ➔ <strong>Siemens SIMATIC ET 200</strong> ➔ Profinet IRT (Cat6A S/FTP) ➔ <strong>Switch Advantech PoE+</strong></p>
-        </div>
+# Vamos criar o documento HTML estilizado para o Descritivo Técnico com um design profissional, limpo e adequado para o site mencionado.
+html_content = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descritivo Técnico: Integração MES, OPC UA, Edge Gateway e Segurança de Rede</title>
+    <style>
+        :root {
+            --primary-color: #1b365d;
+            --secondary-color: #008080;
+            --accent-color: #f4f6f9;
+            --text-color: #333333;
+            --border-color: #dcdcdc;
+            --code-bg: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.5rem;
+        }
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 25px;
+            font-size: 1.2rem;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: var(--accent-color);
+        }
+        .note {
+            background-color: #eef4f8;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95em;
+            color: #c7254e;
+        }
+    </style>
+</head>
+<body>
 
-        <div class="text-center text-slate-500 font-bold">↓</div>
+    <header>
+        <h1>Descritivo Técnico</h1>
+        <p>Comunicação Industrial: MES, OPC UA, Edge Gateway (MQTT) & Segurança de Rede</p>
+    </header>
 
-        <!-- Controlador -->
-        <div class="bg-slate-900 p-4 rounded-lg border border-purple-500/30">
-            <span class="text-purple-400 font-bold block mb-1">2. Controlador & Servidor</span>
-            <p class="text-slate-300"><strong>ENGEL CC300</strong> (Padrão Internacional <strong>Euromap 77</strong> via OPC UA)</p>
-        </div>
+    <div class="container">
 
-        <div class="text-center text-slate-500 font-bold">↓</div>
+        <section>
+            <h2>1. Visão Geral da Arquitetura</h2>
+            <p>Esta especificação técnica define os requisitos de infraestrutura e software para a integração vertical de dados industriais, conectando o chão de fábrica (CLPs, sensores e dispositivos de I/O) até os sistemas de nível superior de gestão da produção (<strong>MES - Manufacturing Execution System</strong>). O escopo contempla o uso de tecnologias padrão de mercado como OPC UA e MQTT via Edge Gateways, além de diretrizes rígidas de segurança para redes com switches gerenciáveis e não gerenciáveis.</p>
+        </section>
 
-        <!-- Edge e MES -->
-        <div class="bg-slate-900 p-4 rounded-lg border border-blue-500/30">
-            <span class="text-blue-400 font-bold block mb-1">3. Computação de Borda & MES</span>
-            <p class="text-slate-300"><strong>Edge Gateway</strong> (Coleta via MQTT/HTTPS) ➔ Sistema <strong>MES On-Premise</strong></p>
-        </div>
+        <section>
+            <h2>2. Camadas de Comunicação e Protocolos</h2>
+            
+            <h3>2.1. Nível de Campo (OT) para Edge Gateway</h3>
+            <ul>
+                <li><strong>Protocolos de Origem:</strong> OPC UA (Open Platform Communications Unified Architecture) nativo ou conversão de protocolos legados (Modbus TCP, PROFINET, EtherNet/IP) executada no próprio Gateway ou CLP.</li>
+                <li><strong>Padronização de Namespaces:</strong> Estrutura de dados organizada em conformidade com as diretrizes do modelo <strong>ISA-95</strong>.</li>
+                <li><strong>Modo de Aquisição:</strong> Utilização preferencial de assinaturas e monitoramento orientado a eventos (Publish/Subscribe ou DataMonitoredItems), evitando polling excessivo que degrade a performance da rede industrial.</li>
+                <li><strong>Segurança OPC UA:</strong> Ativação obrigatória de políticas de segurança com criptografia (AES-128 / AES-256) e autenticação mútua via certificados digitais X.509.</li>
+            </ul>
 
-        <div class="text-center text-slate-500 font-bold">↓</div>
+            <h3>2.2. Edge Gateway para Sistema MES</h3>
+            <ul>
+                <li><strong>Protocolo de Transporte:</strong> MQTT (Message Queuing Telemetry Transport) versões 3.1.1 ou 5.0.</li>
+                <li><strong>Arquitetura de Tópicos:</strong> Hierarquia estruturada orientada a ativos (Ex: <code>fabrica/linha01/celula02/equipamento/estado</code>).</li>
+                <li><strong>Níveis de Qualidade de Serviço (QoS):</strong>
+                    <ul>
+                        <li><strong>QoS 1 (At least once):</strong> Aplicado a dados cíclicos de produção, contagens de peças e estados operacionais, garantindo entrega sem sobrecarga de banda.</li>
+                        <li><strong>QoS 2 (Exactly once):</strong> Aplicado a eventos críticos de qualidade ou alarmes de parada de linha, prevenindo duplicidade de registros no MES.</li>
+                    </ul>
+                </li>
+                <li><strong>Broker MQTT:</strong> Utilização de Broker centralizado e de alta disponibilidade (ex: HiveMQ, EMQX) com suporte a TLS 1.3 e autenticação baseada em tokens ou certificados fortes.</li>
+            </ul>
+        </section>
 
-        <!-- Nuvem e BI -->
-        <div class="bg-slate-900 p-4 rounded-lg border border-emerald-500/30">
-            <span class="text-emerald-400 font-bold block mb-1">4. Banco de Dados & Power BI</span>
-            <p class="text-slate-300"><strong>Azure SQL Database</strong> ➔ <strong>Microsoft Power BI Service</strong> (OEE em Tempo Real)</p>
-        </div>
+        <section>
+            <h2>3. Requisitos de Hardware e Edge Gateway</h2>
+            <ul>
+                <li><strong>Store-and-Forward (Buffer Local):</strong> O Edge Gateway deve possuir memória não volátil dedicada para armazenamento temporário de dados operacionais em caso de interrupção da rede corporativa/MES, garantindo autonomia mínima de retenção de <strong>72 horas</strong>.</li>
+                <li><strong>Interfaces de Rede (Dual-NIC):</strong> Obrigatório o uso de hardware com pelo menos duas portas Ethernet físicas independentes para isolamento físico entre a rede de chão de fábrica (OT) e a rede corporativa (IT).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Segurança de Rede e Acesso</h2>
+            <p>A integridade e a cibersegurança do ambiente industrial dependem da correta segmentação e aplicação de políticas de acesso em switches de rede.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Switches Gerenciáveis (Managed)</th>
+                            <th>Switches Não Gerenciáveis (Unmanaged)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Aplicação Recomendada</strong></td>
+                            <td>Infraestrutura principal, backbone, células críticas e interligação IT-OT.</td>
+                            <td>Ilhas de automação isoladas, pequenas células periféricas de baixo risco.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Segmentação (VLANs)</strong></td>
+                            <td>Suporte total a VLANs (Ex: VLAN 10 - OT/CLPs, VLAN 20 - Edge, VLAN 30 - IT/MES).</td>
+                            <td>Não suporta VLANs. Tráfego sem isolamento lógico direto.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Controle de Acesso</strong></td>
+                            <td>Port Security, 802.1X, desativação de portas ociosas e listas de controle de acesso (ACLs).</td>
+                            <td>Ausente. Requer proteção física rigorosa contra conexões indevidas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protocolos Inseguros</strong></td>
+                            <td>Desativação forçada de Telnet, HTTP, SNMPv1/v2c (substituído por SNMPv3).</td>
+                            <td>Não configurável.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="note">
+                <strong>Diretriz de Arquitetura:</strong> Switches não gerenciáveis nunca devem ser utilizados como espinha dorsal (*backbone*) da rede ou como ponto de interligação direto entre a zona corporativa (MES) e o chão de fábrica.
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Conformidade e Sincronização</h2>
+            <ul>
+                <li><strong>Sincronização Temporal (NTP):</strong> Todos os dispositivos da arquitetura (CLPs, Gateways e Servidores MES) devem estar sincronizados por servidores NTP locais para assegurar a consistência dos carimbos de tempo (timestamps) de eventos e alarmes.</li>
+                <li><strong>Auditoria:</strong> Todos os fluxos de publish/subscribe e transações com o MES devem permitir rastreabilidade e log para fins de auditoria de qualidade e produtividade.</li>
+            </ul>
+        </section>
+
     </div>
-</div>
+
+    <footer>
+        <p>Alinels Automação 4.0 &copy; 2026 — Descritivo Técnico de Conectividade e Cibersegurança Industrial</p>
+    </footer>
+
+</body>
+</html>
+"""
+
+with open("descritivo_tecnico.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Arquivo gerado com sucesso.")
