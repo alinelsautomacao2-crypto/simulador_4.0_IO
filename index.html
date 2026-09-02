@@ -53,20 +53,38 @@
 
     <main class="max-w-7xl mx-auto p-6 space-y-8">
 
-        <!-- Topologia e Hardware -->
+        <!-- Topologia Física e Célula 3D com a Nova Imagem -->
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-            <h2 class="text-base font-semibold text-slate-200 mb-4">1. Topologia Física, Controladores e Diagnóstico de Rede</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 class="text-base font-semibold text-slate-200 mb-4">1. Topologia Física, Controladores e Célula de Injeção</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                <!-- Bloco Visual da Célula ENGEL CC300 -->
                 <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                    <h4 class="text-orange-400 font-bold text-sm mb-2">ENGEL CC300 (Injetora Principal)</h4>
-                    <p class="text-xs text-slate-300 mb-3">Servidor OPC UA nativo operando sob o padrão Euromap 77 para mapeamento de parâmetros de injeção, plastificação e fecho de molde.</p>
-                    <button onclick="openModal()" class="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded text-xs transition">🔍 Ver Diagrama Arquitetural Completo</button>
+                    <div class="overflow-hidden rounded-md border border-slate-700 mb-3 bg-slate-950">
+                        <!-- Certifique-se de salvar a imagem enviada com o nome 'engel_cc300_celula.jpg' na raiz do repositório -->
+                        <img src="engel_cc300_celula.jpg" alt="ENGEL CC300 Integrated Cell Solution" class="w-full h-auto object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <h4 class="text-orange-400 font-bold text-sm mb-1">ENGEL CC300 & Célula de Injeção 3D</h4>
+                    <p class="text-xs text-slate-300 mb-3">Layout técnico integrando unidade de fecho, robô manipulador, zonas de segurança e Servidor OPC UA nativo sob o padrão Euromap 77.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="openModal()" class="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded text-xs transition">🔍 Ver Diagrama Arquitetural</button>
+                        <a href="https://www.engelglobal.com/" target="_blank" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded text-xs transition">🌐 Portal ENGEL</a>
+                    </div>
                 </div>
-                <a href="topologia.html" class="bg-slate-900 p-4 rounded-lg border border-slate-700 hover:border-cyan-500 transition block group">
-                    <h4 class="text-cyan-400 font-bold text-sm mb-2 group-hover:underline">Siemens SIMATIC ET 200 & Advantech PoE+ ➔</h4>
-                    <p class="text-xs text-slate-300">Arquitetura descentralizada com Profinet IRT. Latência de barramento inferior a 2ms e redundância de enlace habilitada.</p>
-                    <span class="text-[10px] text-slate-400 mt-2 block">⚡ Clique para abrir a simulação interativa de fluxo</span>
-                </a>
+
+                <!-- Bloco de Redes e I/Os Remotas -->
+                <div class="space-y-4">
+                    <a href="topologia.html" class="bg-slate-900 p-4 rounded-lg border border-slate-700 hover:border-cyan-500 transition block group">
+                        <h4 class="text-cyan-400 font-bold text-sm mb-1 group-hover:underline">Siemens SIMATIC ET 200 & Advantech PoE+ ➔</h4>
+                        <p class="text-xs text-slate-300">Arquitetura descentralizada com Profinet IRT. Latência de barramento inferior a 2ms e redundância de enlace habilitada.</p>
+                        <span class="text-[10px] text-slate-400 mt-2 block">⚡ Clique para abrir a simulação interativa de fluxo</span>
+                    </a>
+
+                    <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-purple-400 font-bold text-sm mb-1">Conectividade & Borda Industrial</h4>
+                        <p class="text-xs text-slate-300">Coleta cíclica de variáveis críticas de processo (tempo de ciclo, pressões de injeção e temperaturas do molde) transmitidas para persistência em banco de dados corporativo.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
