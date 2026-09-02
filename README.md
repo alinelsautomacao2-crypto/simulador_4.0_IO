@@ -1,4 +1,4 @@
-# Simulador Técnico - Injetora ENGEL CC300 & Indústria 4.0
+# Simulador Técnico - Injetora ENGEL & Indústria 4.0
 
 Este repositório contém o código-fonte de um protótipo conceitual de demonstração sobre coleta de dados, conectividade industrial e indicadores de eficiência aplicados a uma célula de injeção de plástico.
 
