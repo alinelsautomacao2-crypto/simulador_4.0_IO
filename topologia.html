@@ -1,292 +1,292 @@
-  <html lang="pt-BR"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulação de Conectividade - Indústria 4.0</title>
-    <style>
-      body {
-        background-color: #0b111e;
-        color: #ffffff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-      }
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      .btn-voltar {
-        display: inline-block;
-        padding: 10px 18px;
-        background: #ff8c00;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      .layer-box {
-        border: 2px solid #2a3b5c;
-        border-radius: 10px;
-        padding: 20px;
-        background: #131c2e;
-        margin-bottom: 10px;
-      }
-      .layer-title {
-        color: #ff8c00;
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 15px;
-      }
-      .node-grid {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-      .node {
-        background: #1e2d4a;
-        border: 1px solid #00d2ff;
-        border-radius: 8px;
-        padding: 15px;
-        text-align: center;
-        min-width: 200px;
-        box-shadow: 0 4px 10px rgba(0,210,255,0.1);
-      }
-      .node h3 {
-        margin: 5px 0;
-        font-size: 15px;
-        color: #00d2ff;
-      }
-      .node p {
-        font-size: 12px;
-        color: #cbd5e0;
-        margin: 0;
-      }
-      /* Animação dos Fluxos de Dados */
-      .flow-line {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 0;
-      }
-      .pulse-dot {
-        width: 10px;
-        height: 10px;
-        background-color: #00ff88;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ff88;
-        animation: moveDown 1.5s infinite linear;
-      }
-      .flow-label {
-        font-size: 11px;
-        color: #00ff88;
-        margin-top: 5px;
-      }
-      @keyframes moveDown {
-        0% { transform: translateY(-10px); opacity: 0; }
-        50% { opacity: 1; }
-        100% { transform: translateY(10px); opacity: 0; }
-      }
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação de Conectividade - Indústria 4.0</title>
+  <style>
+    body {
+      background-color: #0b111e;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .btn-voltar {
+      display: inline-block;
+      padding: 10px 18px;
+      background: #ff8c00;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .layer-box {
+      border: 2px solid #2a3b5c;
+      border-radius: 10px;
+      padding: 20px;
+      background: #131c2e;
+      margin-bottom: 10px;
+    }
+    .layer-title {
+      color: #ff8c00;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+    .node-grid {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .node {
+      background: #1e2d4a;
+      border: 1px solid #00d2ff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      min-width: 200px;
+      box-shadow: 0 4px 10px rgba(0,210,255,0.1);
+    }
+    .node h3 {
+      margin: 5px 0;
+      font-size: 15px;
+      color: #00d2ff;
+    }
+    .node p {
+      font-size: 12px;
+      color: #cbd5e0;
+      margin: 0;
+    }
+    /* Animação dos Fluxos de Dados */
+    .flow-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00ff88;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ff88;
+      animation: moveDown 1.5s infinite linear;
+    }
+    .flow-label {
+      font-size: 11px;
+      color: #00ff88;
+      margin-top: 5px;
+    }
+    @keyframes moveDown {
+      0% { transform: translateY(-10px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(10px); opacity: 0; }
+    }
 
-      .technical-description {
-        margin: 18px 0 22px;
-        padding: 22px;
-        border: 1px solid #2a3b5c;
-        border-left: 4px solid #ff8c00;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #172238 0%, #111a2c 100%);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-      }
-      .technical-description-header {
-        margin-bottom: 18px;
-      }
-      .technical-description-header h2 {
-        margin: 0 0 6px;
-        font-size: 20px;
-        color: #ffffff;
-      }
-      .technical-description-header p {
-        margin: 0;
-        color: #aebdd1;
-        font-size: 13px;
-        line-height: 1.6;
-      }
+    .technical-description {
+      margin: 18px 0 22px;
+      padding: 22px;
+      border: 1px solid #2a3b5c;
+      border-left: 4px solid #ff8c00;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #172238 0%, #111a2c 100%);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .technical-description-header {
+      margin-bottom: 18px;
+    }
+    .technical-description-header h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      color: #ffffff;
+    }
+    .technical-description-header p {
+      margin: 0;
+      color: #aebdd1;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .technical-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .technical-card {
+      padding: 18px;
+      border: 1px solid #314568;
+      border-radius: 8px;
+      background: rgba(10, 18, 33, 0.72);
+    }
+    .technical-card h3 {
+      margin: 0 0 12px;
+      color: #00d2ff;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .technical-card h3 span {
+      display: inline-block;
+      margin-right: 7px;
+      color: #ff8c00;
+    }
+    .technical-card p {
+      margin: 0 0 11px;
+      color: #d4deeb;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .technical-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #b7c5d8;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+    .technical-card li + li {
+      margin-top: 6px;
+    }
+    .technical-label {
+      color: #ffb15c;
+      font-weight: bold;
+    }
+    @media (max-width: 720px) {
       .technical-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+        grid-template-columns: 1fr;
       }
-      .technical-card {
-        padding: 18px;
-        border: 1px solid #314568;
-        border-radius: 8px;
-        background: rgba(10, 18, 33, 0.72);
+      .technical-description {
+        padding: 16px;
       }
-      .technical-card h3 {
-        margin: 0 0 12px;
-        color: #00d2ff;
-        font-size: 15px;
-        line-height: 1.4;
-      }
-      .technical-card h3 span {
-        display: inline-block;
-        margin-right: 7px;
-        color: #ff8c00;
-      }
-      .technical-card p {
-        margin: 0 0 11px;
-        color: #d4deeb;
-        font-size: 13px;
-        line-height: 1.65;
-      }
-      .technical-card ul {
-        margin: 0;
-        padding-left: 18px;
-        color: #b7c5d8;
-        font-size: 12px;
-        line-height: 1.65;
-      }
-      .technical-card li + li {
-        margin-top: 6px;
-      }
-      .technical-label {
-        color: #ffb15c;
-        font-weight: bold;
-      }
-      @media (max-width: 720px) {
-        .technical-grid {
-          grid-template-columns: 1fr;
-        }
-        .technical-description {
-          padding: 16px;
-        }
-      }
-    </style>
-  </head>
-  <body>
+    }
+  </style>
+</head>
+<body>
 
-  <div class="container">
-    <a href="index.html" class="btn-voltar" data-manus_clickable="true" data-manus_click_id="1">⬅ Voltar ao Painel Principal</a>
-    <h1>Simulação da Arquitetura &amp; Conectividade de Dados</h1>
+<div class="container">
+  <a href="index.html" class="btn-voltar" data-manus_clickable="true" data-manus_click_id="1">⬅ Voltar ao Painel Principal</a>
+  <h1>Simulação da Arquitetura &amp; Conectividade de Dados</h1>
 
-    <div class="layer-box">
-      <div class="layer-title">CHÃO DE FÁBRICA - CÉLULA DE INJEÇÃO</div>
-      
-      <div class="node-grid">
-        <div class="node">
-          <span>🔌</span>
-          <h3>Sensores / Atuadores</h3>
-          <p>Molde de Injeção</p>
-        </div>
-      </div>
-
-      <div class="flow-line">
-        <div class="pulse-dot"></div>
-        <span class="flow-label">Fiação Blindada</span>
-      </div>
-
-      <div class="node-grid">
-        <div class="node">
-          <span>📦</span>
-          <h3>Siemens SIMATIC ET 200</h3>
-          <p>I/Os Descentralizadas</p>
-        </div>
-      </div>
-
-      <div class="flow-line">
-        <div class="pulse-dot"></div>
-        <span class="flow-label">Profinet IRT / Cat6A S/FTP</span>
-      </div>
-
-      <div class="node-grid">
-        <div class="node">
-          <span>🔄</span>
-          <h3>Switch Advantech</h3>
-          <p>Gerenciável PoE+</p>
-        </div>
-      </div>
-
-      <div class="flow-line">
-        <div class="pulse-dot"></div>
-        <span class="flow-label">OPC UA / Euromap 77</span>
-      </div>
-
-      <div class="node-grid">
-        <div class="node" style="border-color: #ff8c00;">
-          <span>🖥️</span>
-          <h3 style="color: #ff8c00;">Controlador ENGEL CC300</h3>
-          <p>Interface Touch 21.5" Full HD</p>
-        </div>
-      </div>
-    </div>
-
-    <section class="technical-description" aria-labelledby="technical-description-title">
-      <div class="technical-description-header">
-        <h2 id="technical-description-title">Descritivo Técnico de Engenharia</h2>
-        <p>Automação e Conectividade Industrial 4.0 — especificação funcional das camadas de campo e comunicação determinística da célula de injeção.</p>
-      </div>
-
-      <div class="technical-grid">
-        <article class="technical-card">
-          <h3><span>01</span> Camada 1 — Chão de Fábrica</h3>
-          <p><span class="technical-label">Sensoriamento e E/S descentralizada:</span> a célula utiliza módulos de E/S remotas Siemens SIMATIC ET 200, como as famílias ET 200SP ou ET 200MP, instalados próximos ao molde, à unidade de injeção e aos periféricos da máquina.</p>
-          <p><span class="technical-label">Sensores de malha fechada:</span> transdutores de posição linear, células de carga para o processo de injeção, termopares e pressostatos hidráulicos são conectados diretamente aos blocos remotos de E/S para aquisição precisa das variáveis críticas.</p>
-          <ul>
-            <li>Redução de extensões longas de cabos analógicos e da exposição a interferências eletromagnéticas.</li>
-            <li>Maior integridade do sinal e resposta mais rápida nas malhas de controle de injeção.</li>
-            <li>Arquitetura modular, facilitando a expansão, a manutenção e o diagnóstico dos dispositivos de campo.</li>
-          </ul>
-        </article>
-
-        <article class="technical-card">
-          <h3><span>02</span> Camada 2 — Rede Determinística</h3>
-          <p><span class="technical-label">Infraestrutura de comunicação em tempo real:</span> o tráfego entre as ilhas Siemens ET 200, inversores e o controlador principal ENGEL CC300 ocorre através do protocolo Profinet IRT (Isochronous Real Time), assegurando sincronismo temporal e baixo jitter para os ciclos de injeção de alta velocidade.</p>
-          <p><span class="technical-label">Cabeamento e comutação industrial:</span> são utilizados cabos blindados Cat6A S/FTP, com blindagem global e individual por par trançado, instalados de forma adequada para ambientes industriais e esteiras porta-cabos.</p>
-          <ul>
-            <li>Switch Industrial Gerenciável Advantech com suporte a VLANs e QoS para priorização do tráfego crítico.</li>
-            <li>PoE+ para alimentação de câmeras de inspeção, leitores RFID e outros dispositivos auxiliares de borda.</li>
-            <li>Maior disponibilidade, previsibilidade e rastreabilidade da comunicação industrial.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <div class="flow-line">
-      <div class="pulse-dot"></div>
-      <span class="flow-label">MQTT / HTTPS</span>
-    </div>
-
-    <div class="layer-box">
-      <div class="layer-title">CAMADA DE DADOS E NUVEM (MIDSTREAM)</div>
-      <div class="node-grid">
-        <div class="node">
-          <span>🗄️</span>
-          <h3>Banco de Dados / MES</h3>
-          <p>Azure SQL On-Premise</p>
-        </div>
+  <div class="layer-box">
+    <div class="layer-title">CHÃO DE FÁBRICA - CÉLULA DE INJEÇÃO</div>
+    
+    <div class="node-grid">
+      <div class="node">
+        <span>🔌</span>
+        <h3>Sensores / Atuadores</h3>
+        <p>Molde de Injeção</p>
       </div>
     </div>
 
     <div class="flow-line">
       <div class="pulse-dot"></div>
-      <span class="flow-label">DirectQuery / API REST</span>
+      <span class="flow-label">Fiação Blindada</span>
     </div>
 
-    <div class="layer-box">
-      <div class="layer-title">CAMADA DE BUSINESS INTELLIGENCE</div>
-      <div class="node-grid">
-        <div class="node" style="border-color: #f2c811;">
-          <span>📊</span>
-          <h3 style="color: #f2c811;">Microsoft Power BI</h3>
-          <p>OEE &amp; Indicadores CC300</p>
-        </div>
+    <div class="node-grid">
+      <div class="node">
+        <span>📦</span>
+        <h3>Siemens SIMATIC ET 200</h3>
+        <p>I/Os Descentralizadas</p>
       </div>
     </div>
 
+    <div class="flow-line">
+      <div class="pulse-dot"></div>
+      <span class="flow-label">Profinet IRT / Cat6A S/FTP</span>
+    </div>
+
+    <div class="node-grid">
+      <div class="node">
+        <span>🔄</span>
+        <h3>Switch Advantech</h3>
+        <p>Gerenciável PoE+</p>
+      </div>
+    </div>
+
+    <div class="flow-line">
+      <div class="pulse-dot"></div>
+      <span class="flow-label">OPC UA / Euromap 77</span>
+    </div>
+
+    <div class="node-grid">
+      <div class="node" style="border-color: #ff8c00;">
+        <span>🖥️</span>
+        <h3 style="color: #ff8c00;">Controlador ENGEL CC300</h3>
+        <p>Interface Touch 21.5" Full HD</p>
+      </div>
+    </div>
   </div>
 
+  <section class="technical-description" aria-labelledby="technical-description-title">
+    <div class="technical-description-header">
+      <h2 id="technical-description-title">Descritivo Técnico de Engenharia</h2>
+      <p>Automação e Conectividade Industrial 4.0 — especificação funcional das camadas de campo e comunicação determinística da célula de injeção.</p>
+    </div>
+
+    <div class="technical-grid">
+      <article class="technical-card">
+        <h3><span>01</span> Camada 1 — Chão de Fábrica</h3>
+        <p><span class="technical-label">Sensoriamento e E/S descentralizada:</span> a célula utiliza módulos de E/S remotas Siemens SIMATIC ET 200, como as famílias ET 200SP ou ET 200MP, instalados próximos ao molde, à unidade de injeção e aos periféricos da máquina.</p>
+        <p><span class="technical-label">Sensores de malha fechada:</span> transdutores de posição linear, células de carga para o processo de injeção, termopares e pressostatos hidráulicos são conectados diretamente aos blocos remotos de E/S para aquisição precisa das variáveis críticas.</p>
+        <ul>
+          <li>Redução de extensões longas de cabos analógicos e da exposição a interferências eletromagnéticas.</li>
+          <li>Maior integridade do sinal e resposta mais rápida nas malhas de controle de injeção.</li>
+          <li>Arquitetura modular, facilitando a expansão, a manutenção e o diagnóstico dos dispositivos de campo.</li>
+        </ul>
+      </article>
+
+      <article class="technical-card">
+        <h3><span>02</span> Camada 2 — Rede Determinística</h3>
+        <p><span class="technical-label">Infraestrutura de comunicação em tempo real:</span> o tráfego entre as ilhas Siemens ET 200, inversores e o controlador principal ENGEL CC300 ocorre através do protocolo Profinet IRT (Isochronous Real Time), assegurando sincronismo temporal e baixo jitter para os ciclos de injeção de alta velocidade.</p>
+        <p><span class="technical-label">Cabeamento e comutação industrial:</span> são utilizados cabos blindados Cat6A S/FTP, com blindagem global e individual por par trançado, instalados de forma adequada para ambientes industriais e esteiras porta-cabos.</p>
+        <ul>
+          <li>Switch Industrial Gerenciável Advantech com suporte a VLANs e QoS para priorização do tráfego crítico.</li>
+          <li>PoE+ para alimentação de câmeras de inspeção, leitores RFID e outros dispositivos auxiliares de borda.</li>
+          <li>Maior disponibilidade, previsibilidade e rastreabilidade da comunicação industrial.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <div class="flow-line">
+    <div class="pulse-dot"></div>
+    <span class="flow-label">MQTT / HTTPS</span>
+  </div>
+
+  <div class="layer-box">
+    <div class="layer-title">CAMADA DE DADOS E NUVEM (MIDSTREAM)</div>
+    <div class="node-grid">
+      <div class="node">
+        <span>🗄️</span>
+        <h3>Banco de Dados / MES</h3>
+        <p>Azure SQL On-Premise</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-line">
+    <div class="pulse-dot"></div>
+    <span class="flow-label">DirectQuery / API REST</span>
+  </div>
+
+  <div class="layer-box">
+    <div class="layer-title">CAMADA DE BUSINESS INTELLIGENCE</div>
+    <div class="node-grid">
+      <div class="node" style="border-color: #f2c811;">
+        <span>📊</span>
+        <h3 style="color: #f2c811;">Microsoft Power BI</h3>
+        <p>OEE &amp; Indicadores CC300</p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
-  </body></html>
+
+</body></html>
