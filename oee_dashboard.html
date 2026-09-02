@@ -42,13 +42,13 @@
             <span class="bg-amber-500 text-slate-950 font-bold px-2.5 py-1 rounded text-xs">PBI Service</span>
             <div>
                 <h1 class="text-sm font-bold text-slate-100">Relatório Executivo: OEE & Célula ENGEL CC300</h1>
-                <p class="text-[11px] text-slate-400">Workspace: Indústria 4.0 / Conexão: DirectQuery (OPC UA / Euromap 77)</p>
+                <p class="text-[11px] text-slate-400">Workspace: Indústria 4.0 / Modo demonstração local</p>
             </div>
         </div>
         <div class="flex items-center space-x-3">
             <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs font-semibold transition border border-slate-700">← Voltar ao Início</a>
             <span class="inline-block w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
-            <span class="text-xs text-emerald-400 font-medium">Atualização Cíclica Ativa</span>
+            <span id="statusAtualizacao" class="text-xs text-emerald-400 font-medium">Atualização Cíclica Ativa</span>
         </div>
     </header>
 
@@ -66,7 +66,7 @@
                 </select>
             </div>
             <div class="flex items-center space-x-3">
-                <span class="text-xs text-slate-400">Modo de Simulação em Tempo Real:</span>
+                <span class="text-xs text-slate-400">Modo de Demonstração em Tempo Real:</span>
                 <button onclick="toggleSimulacao()" id="btnSimulacao" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded transition">Pausar Feed</button>
             </div>
         </div>
@@ -140,7 +140,7 @@
         <!-- Seção de Código DAX Utilizado no Relatório -->
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
             <h3 class="text-sm font-bold text-amber-400 mb-2">🧠 Modelo Tabular & Medidas DAX Implementadas no Power BI</h3>
-            <p class="text-xs text-slate-400 mb-4">Estas fórmulas processam os dados brutos recebidos via protocolo Euromap 77 para alimentar os visuais acima:</p>
+            <p class="text-xs text-slate-400 mb-4">Estas fórmulas representam o cálculo aplicado aos dados simulados exibidos nos visuais acima:</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-slate-950 p-3.5 rounded border border-slate-800 font-mono text-xs text-slate-300">
@@ -169,29 +169,24 @@
     </footer>
 
     <script>
-        // Configuração dos Gráficos com Chart.js
+        const dadosPorTurno = {
+            geral: { disp: 92.5, desem: 94.1, qual: 97.8, paradas: 18, pressao: 0, ciclo: 0 },
+            manha: { disp: 92.0, desem: 93.8, qual: 97.5, paradas: 18, pressao: 2, ciclo: 0.1 },
+            tarde: { disp: 93.1, desem: 94.6, qual: 98.1, paradas: 15, pressao: 5, ciclo: -0.1 },
+            noite: { disp: 91.4, desem: 92.9, qual: 97.1, paradas: 24, pressao: -3, ciclo: 0.2 }
+        };
+
+        const basePressao = [1410, 1425, 1430, 1418, 1422, 1435, 1425];
+        const baseCiclo = [28.1, 28.3, 28.0, 28.4, 28.2, 28.5, 28.2];
         const ctxTendencia = document.getElementById('graficoTendencia').getContext('2d');
         const graficoTendencia = new Chart(ctxTendencia, {
             type: 'line',
             data: {
                 labels: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-                datasets: [{
-                    label: 'Pressão de Injeção (bar)',
-                    data: [1410, 1425, 1430, 1418, 1422, 1435, 1425],
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.3,
-                    fill: true
-                }, {
-                    label: 'Tempo de Ciclo (s)',
-                    data: [28.1, 28.3, 28.0, 28.4, 28.2, 28.5, 28.2],
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.05)',
-                    borderWidth: 2,
-                    tension: 0.3,
-                    yAxisID: 'y1'
-                }]
+                datasets: [
+                    { label: 'Pressão de Injeção (bar)', data: [...basePressao], borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', borderWidth: 2, tension: 0.3, fill: true },
+                    { label: 'Tempo de Ciclo (s)', data: [...baseCiclo], borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.05)', borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+                ]
             },
             options: {
                 responsive: true,
@@ -210,57 +205,66 @@
             type: 'doughnut',
             data: {
                 labels: ['Setup de Molde', 'Manutenção Corretiva', 'Falta de Matéria-Prima', 'Pequenas Paradas'],
-                datasets: [{
-                    data: [42, 35, 15, 8],
-                    backgroundColor: ['#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6'],
-                    borderWidth: 0
-                }]
+                datasets: [{ data: [42, 35, 15, 8], backgroundColor: ['#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6'], borderWidth: 0 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, boxWidth: 12 } }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, boxWidth: 12 } } } }
         });
 
-        // Simulação dinâmica em tempo real
         let simulando = true;
+        let turnoAtual = 'geral';
+
+        function calcularOee(dados) {
+            return (dados.disp * dados.desem * dados.qual) / 10000;
+        }
+
+        function renderizarDashboard() {
+            const dados = dadosPorTurno[turnoAtual];
+            const variacao = simulando ? (Math.random() - 0.5) * 0.4 : 0;
+            const disp = dados.disp + variacao;
+            const desem = dados.desem + variacao;
+            const qual = dados.qual + variacao * 0.5;
+            const oee = calcularOee({ disp, desem, qual });
+            const refugo = 100 - qual;
+
+            document.getElementById('kpi-oee').textContent = `${oee.toFixed(1)}%`;
+            document.getElementById('kpi-disp').textContent = `${disp.toFixed(1)}%`;
+            document.getElementById('kpi-desem').textContent = `${desem.toFixed(1)}%`;
+            document.getElementById('kpi-qual').textContent = `${qual.toFixed(1)}%`;
+            document.getElementById('kpi-refugo').textContent = `Refugo: ${refugo.toFixed(1)}%`;
+            document.getElementById('kpi-disp').nextElementSibling.textContent = `Paradas: ${dados.paradas} min`;
+
+            graficoTendencia.data.datasets[0].data = basePressao.map((valor, i) => valor + dados.pressao + (simulando ? Math.sin(Date.now() / 4000 + i) : 0));
+            graficoTendencia.data.datasets[1].data = baseCiclo.map((valor, i) => valor + dados.ciclo + (simulando ? Math.sin(Date.now() / 3500 + i) * 0.02 : 0));
+            graficoTendencia.update('none');
+        }
+
+        function atualizarStatus() {
+            const status = document.getElementById('statusAtualizacao');
+            const btn = document.getElementById('btnSimulacao');
+            status.textContent = simulando ? 'Atualização Cíclica Ativa' : 'Atualização Pausada';
+            status.className = simulando ? 'text-xs text-emerald-400 font-medium' : 'text-xs text-amber-400 font-medium';
+            btn.textContent = simulando ? 'Pausar Feed' : 'Retomar Feed';
+            btn.className = simulando
+                ? 'px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded transition'
+                : 'px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded transition';
+        }
+
         function toggleSimulacao() {
             simulando = !simulando;
-            const btn = document.getElementById('btnSimulacao');
-            if (simulando) {
-                btn.innerText = "Pausar Feed";
-                btn.className = "px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded transition";
-            } else {
-                btn.innerText = "Retomar Feed";
-                btn.className = "px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded transition";
-            }
+            atualizarStatus();
+            renderizarDashboard();
         }
-
-        setInterval(() => {
-            if (!simulando) return;
-            
-            // Variar KPIs levemente para simular telemetria ativa
-            let oee = (83 + Math.random() * 2.5).toFixed(1);
-            let disp = (91 + Math.random() * 2.5).toFixed(1);
-            let desem = (93 + Math.random() * 2.0).toFixed(1);
-            let qual = (97 + Math.random() * 1.5).toFixed(1);
-            let refugo = (100 - qual).toFixed(1);
-
-            document.getElementById('kpi-oee').innerText = oee + '%';
-            document.getElementById('kpi-disp').innerText = disp + '%';
-            document.getElementById('kpi-desem').innerText = desem + '%';
-            document.getElementById('kpi-qual').innerText = qual + '%';
-            document.getElementById('kpi-refugo').innerText = 'Refugo: ' + refugo + '%';
-        }, 3000);
 
         function atualizarFiltroTurno() {
-            const turno = document.getElementById('filtroTurno').value;
-            // Efeito visual de filtro aplicado
-            console.log("Filtro de turno aplicado no modelo tabular: " + turno);
+            turnoAtual = document.getElementById('filtroTurno').value;
+            renderizarDashboard();
         }
+
+        atualizarStatus();
+        renderizarDashboard();
+        setInterval(() => {
+            if (simulando) renderizarDashboard();
+        }, 3000);
     </script>
 </body>
 </html>
