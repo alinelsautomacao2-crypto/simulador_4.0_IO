@@ -201,7 +201,7 @@
 
     <div class="flow-line">
       <div class="pulse-dot"></div>
-      <span class="flow-label">Profinet IRT / Cat6A S/FTP</span>
+      <span class="flow-label">PROFINET / Cat6A S/FTP</span>
     </div>
 
     <div class="node-grid">
@@ -214,7 +214,7 @@
 
     <div class="flow-line">
       <div class="pulse-dot"></div>
-      <span class="flow-label">OPC UA / Euromap 77</span>
+      <span class="flow-label">OPC UA / EUROMAP 77 (previsto)</span>
     </div>
 
     <div class="node-grid">
@@ -229,7 +229,7 @@
   <section class="technical-description" aria-labelledby="technical-description-title">
     <div class="technical-description-header">
       <h2 id="technical-description-title">Descritivo Técnico de Engenharia</h2>
-      <p>Automação e Conectividade Industrial 4.0 — especificação funcional das camadas de campo e comunicação determinística da célula de injeção.</p>
+      <p>Automação e Conectividade Industrial 4.0 — modelo conceitual das camadas de campo, comunicação e análise da célula de injeção.</p>
     </div>
 
     <div class="technical-grid">
@@ -246,10 +246,10 @@
 
       <article class="technical-card">
         <h3><span>02</span> Camada 2 — Rede Determinística</h3>
-        <p><span class="technical-label">Infraestrutura de comunicação em tempo real:</span> o tráfego entre as ilhas Siemens ET 200, inversores e o controlador principal ENGEL CC300 ocorre através do protocolo Profinet IRT (Isochronous Real Time), assegurando sincronismo temporal e baixo jitter para os ciclos de injeção de alta velocidade.</p>
+        <p><span class="technical-label">Infraestrutura de comunicação em tempo real:</span> o tráfego entre as ilhas Siemens ET 200, inversores e o controlador principal deve ser especificado conforme o ciclo de controle. PROFINET IRT só deve ser adotado após confirmar a compatibilidade dos dispositivos, switches, topologia e configuração.</p>
         <p><span class="technical-label">Cabeamento e comutação industrial:</span> são utilizados cabos blindados Cat6A S/FTP, com blindagem global e individual por par trançado, instalados de forma adequada para ambientes industriais e esteiras porta-cabos.</p>
         <ul>
-          <li>Switch Industrial Gerenciável Advantech com suporte a VLANs e QoS para priorização do tráfego crítico.</li>
+          <li>Switch industrial gerenciável compatível com a arquitetura definida, com VLANs e QoS quando necessários e comprovados por documentação do modelo.</li>
           <li>PoE+ para alimentação de câmeras de inspeção, leitores RFID e outros dispositivos auxiliares de borda.</li>
           <li>Maior disponibilidade, previsibilidade e rastreabilidade da comunicação industrial.</li>
         </ul>
@@ -268,14 +268,14 @@
       <div class="node">
         <span>🗄️</span>
         <h3>Banco de Dados / MES</h3>
-        <p>Azure SQL On-Premise</p>
+        <p>Banco SQL local ou serviço híbrido, a definir</p>
       </div>
     </div>
   </div>
 
   <div class="flow-line">
     <div class="pulse-dot"></div>
-    <span class="flow-label">DirectQuery / API REST</span>
+    <span class="flow-label">API de dados / integração futura</span>
   </div>
 
   <div class="layer-box">
