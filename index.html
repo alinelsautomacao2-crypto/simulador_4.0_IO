@@ -34,7 +34,7 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-xl font-bold text-orange-500">ENGEL CC300 &amp; Indústria 4.0</h1>
-                <p class="text-xs text-slate-400">Simulador Avançado: CLP Siemens, I/O Remota, Switch Advantech &amp; Power BI</p>
+                <p class="text-xs text-slate-400">Protótipo conceitual: CLP, E/S remota, rede industrial e OEE</p>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="text-right hidden sm:block">
@@ -42,8 +42,8 @@
                     <span class="text-[10px] text-orange-400 block">Automação &amp; Processos</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <span class="inline-block w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                    <span class="text-xs font-semibold text-green-400 uppercase tracking-wider">OPC UA / Euromap 77 Online</span>
+                    <span class="inline-block w-3 h-3 bg-amber-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Demonstração de conectividade industrial</span>
                 </div>
             </div>
         </div>
@@ -62,25 +62,25 @@
                         <img src="https://img.directindustry.com/pt/images_di/photo-m2/20405-19638128.webp" alt="Célula industrial de injeção ENGEL CC300" class="w-full h-auto object-cover hover:scale-105 transition duration-300" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=85';">
                     </div>
                     <h4 class="text-orange-400 font-bold text-sm mb-1">ENGEL CC300 &amp; Célula de Injeção 3D</h4>
-                    <p class="text-xs text-slate-300 mb-3">Layout técnico integrando unidade de fecho, robô manipulador, zonas de segurança e Servidor OPC UA nativo sob o padrão Euromap 77.</p>
+                    <p class="text-xs text-slate-300 mb-3">Modelo conceitual integrando unidade de fecho, robô manipulador, zonas de segurança e uma camada prevista de comunicação OPC UA/EUROMAP 77.</p>
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="openModal()" class="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded text-xs transition" data-manus_clickable="true" data-manus_click_id="1">🔍 Ver Diagrama Arquitetural</button>
-                        <a href="https://www.engelglobal.com/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded text-xs transition" data-manus_clickable="true" data-manus_click_id="2">🌐 Portal ENGEL</a>
+                        <button onclick="openModal()" class="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded text-xs transition">🔍 Ver Diagrama Arquitetural</button>
+                        <a href="https://www.engelglobal.com/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded text-xs transition">🌐 Portal ENGEL</a>
                     </div>
                 </div>
 
                 <!-- Bloco de Redes e I/Os Remotas -->
                 <div class="space-y-4">
-                    <a href="topologia.html" class="bg-slate-900 p-4 rounded-lg border border-slate-700 hover:border-cyan-500 transition block group" data-manus_clickable="true" data-manus_click_id="3">
+                    <a href="topologia.html" class="bg-slate-900 p-4 rounded-lg border border-slate-700 hover:border-cyan-500 transition block group">
                         <h4 class="text-cyan-400 font-bold text-sm mb-1 group-hover:underline">Siemens SIMATIC ET 200 &amp; Advantech PoE+ ➔</h4>
-                        <p class="text-xs text-slate-300">Arquitetura descentralizada com Profinet IRT. Latência de barramento inferior a 2ms e redundância de enlace habilitada.</p>
+                        <p class="text-xs text-slate-300">Arquitetura descentralizada com PROFINET. O uso de IRT, a latência e a redundância dependem da compatibilidade e da validação dos equipamentos.</p>
                         <span class="text-[10px] text-slate-400 mt-2 block">⚡ Clique para abrir a simulação interativa de fluxo</span>
                     </a>
 
                     <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
                         <h4 class="text-purple-400 font-bold text-sm mb-1">Conectividade &amp; Borda Industrial</h4>
                         <p class="text-xs text-slate-300 mb-3">Coleta cíclica de variáveis críticas de processo (tempo de ciclo, pressões de injeção e temperaturas do molde) transmitidas para persistência em banco de dados corporativo.</p>
-                        <a href="descritivo_tecnico.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded text-xs transition" data-manus_clickable="true" data-manus_click_id="4">📘 Abrir Descritivo Técnico</a>
+                        <a href="descritivo_tecnico.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded text-xs transition">📘 Abrir Descritivo Técnico</a>
                     </div>
                 </div>
             </div>
@@ -114,8 +114,8 @@
         <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-700 pb-4 mb-5 gap-4">
                 <div>
-                    <h2 class="text-lg font-semibold text-slate-200">2. Integração Power BI &amp; OEE Dashboard (DirectQuery)</h2>
-                    <p class="text-xs text-slate-400 mt-1">Conectividade analítica em tempo real baseada no protocolo Euromap 77.</p>
+                    <h2 class="text-lg font-semibold text-slate-200">2. Demonstração de indicadores OEE</h2>
+                    <p class="text-xs text-slate-400 mt-1">Demonstração analítica baseada em dados simulados e em uma integração prevista com EUROMAP 77.</p>
                 </div>
                 <a href="oee_dashboard.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg text-xs transition flex items-center gap-2 shadow-lg">
                     🚀 Acessar Simulador OEE Completo
@@ -135,7 +135,7 @@
 
                 <div class="space-y-4">
                     <p class="text-sm text-slate-300 leading-relaxed">
-                        Os dados normalizados via protocolo <strong>Euromap 77</strong> e persistidos no banco corporativo alimentam o modelo tabular no Power BI Service, permitindo o acompanhamento dinâmico da disponibilidade, desempenho e qualidade por turno e máquina.
+                        Os dados simulados seguem uma estrutura compatível com a integração prevista via <strong>EUROMAP 77</strong>. Em uma implantação real, seriam persistidos e disponibilizados ao modelo analítico após a validação do gateway, do MES e das regras de qualidade.
                     </p>
 
                     <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-700 text-xs font-mono text-slate-300 space-y-1">
@@ -148,7 +148,7 @@
                         <div>
                             <span class="text-slate-400 block text-[10px]">Status do Modelo Tabular</span>
                             <span class="text-emerald-400 font-semibold flex items-center gap-1.5 mt-0.5">
-                                <span class="h-2 w-2 rounded-full bg-green-500"></span> Conectado (DirectQuery)
+                                <span class="h-2 w-2 rounded-full bg-amber-500"></span> Demonstração local
                             </span>
                         </div>
                         <a href="oee_dashboard.html" class="text-cyan-400 hover:text-cyan-300 hover:underline text-xs font-medium">Ver Relatório Detalhado ➔</a>
@@ -171,9 +171,9 @@
             </div>
             <div class="space-y-4 text-xs text-slate-300">
                 <p><strong>Camada 1 (Chão de Fábrica):</strong> Sensores de malha fechada conectados aos módulos remotos Siemens SIMATIC ET 200.</p>
-                <p><strong>Camada 2 (Rede Determinística):</strong> Tráfego via Profinet IRT com cabeamento S/FTP Cat6A comutado por Switch Industrial Advantech.</p>
-                <p><strong>Camada 3 (Controlador &amp; Borda):</strong> Injetora ENGEL CC300 disponibilizando endpoints OPC UA (Euromap 77) consumidos por *Edge Gateway* via MQTT.</p>
-                <p><strong>Camada 4 (Business Intelligence):</strong> Camada analítica em nuvem integrada ao Microsoft Power BI.</p>
+                <p><strong>Camada 2 (Rede Industrial):</strong> Tráfego via PROFINET, com IRT somente se os dispositivos, switches, topologia e configuração forem compatíveis e validados.</p>
+                <p><strong>Camada 3 (Controlador &amp; Borda):</strong> Máquina de injeção disponibilizando, em uma implementação futura, endpoints OPC UA compatíveis com EUROMAP 77 para consumo por um gateway de borda via MQTT.</p>
+                <p><strong>Camada 4 (Análise):</strong> Camada de indicadores preparada para futura integração com uma plataforma de BI, após validação da fonte de dados e do modelo semântico.</p>
             </div>
             <div class="mt-6 pt-4 border-t border-slate-700 flex justify-end">
                 <button onclick="closeModal()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-5 py-2 rounded-lg transition">Fechar</button>
@@ -182,7 +182,7 @@
     </div>
 
     <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-800 mt-12 space-y-1">
-        <p>Demonstração Técnica Industrial 4.0 • Engenharia Responsável: Engª Aline Santos</p>
+        <p>Protótipo conceitual de demonstração • Engenharia Responsável: Engª Aline Santos</p>
     </footer>
 
     <script>
